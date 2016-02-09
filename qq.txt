@@ -1,0 +1,5 @@
+I got a message "This disk contains mismatched GPT and MBR partition". What's that?
+You might have installed an OS with GPT partition table, and later overwrite the disk by installing another OS with MBR partition table. The MBR partition table editor, e.g. fdisk, sfdisk, or cdisk does not know GPT, so it overwrite part of the GPT partition table, but did not clean the rest completely. Therefore that's why you got such a message.
+If you are sure your running OS is using MBR partition table, not GPT one, you can run
+sudo sgdisk -z /dev/sdx
+(Replace /dev/sdx with your disk name, e.g. /dev/sda for the 1st hard drive) to clean the GPT partition table, while keep the MBR partition table. //NOTE// Use the above command carefully. It might destroy everything on the harddrive.
